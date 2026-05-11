@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f7f8fb;
+  color: #172033;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(240, 253, 244, 0.72), rgba(247, 248, 251, 0) 280px),
+    #f7f8fb;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+.editor-shell .cm-editor {
+  min-height: 430px;
+  border-radius: 8px;
+  outline: 1px solid #d8dee9;
+}
+
+.editor-shell .cm-scroller {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+}

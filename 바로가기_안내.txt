@@ -1,0 +1,17 @@
+AlgoGrass 바로 실행 방법
+
+1. 이 폴더 위치:
+/Users/castlehouse/Documents/Codex/2026-05-11/1-algograss-dfs-bfs-java-github
+
+2. 개발 서버 실행:
+열기.command 파일을 더블클릭하세요.
+
+3. 브라우저 접속:
+http://localhost:3000
+
+공유용 추천 배포 주소:
+https://algograss.com
+
+터미널에서 직접 실행하려면:
+cd /Users/castlehouse/Documents/Codex/2026-05-11/1-algograss-dfs-bfs-java-github
+npm run dev
