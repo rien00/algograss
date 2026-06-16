@@ -7,7 +7,12 @@ export type AlgorithmId =
   | "backtracking"
   | "dfs"
   | "bfs"
-  | "dijkstra";
+  | "dijkstra"
+  | "kruskal"
+  | "prim"
+  | "disjoint"
+  | "topology"
+  | "dp";
 
 export type Algorithm = {
   id: AlgorithmId;

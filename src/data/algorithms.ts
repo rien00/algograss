@@ -174,6 +174,154 @@ export const algorithms: Algorithm[] = [
     }
 }`,
   },
+  {
+    id: "kruskal",
+    nameKo: "크루스칼",
+    nameEn: "Kruskal",
+    summary: "간선을 비용순으로 정렬하고, 사이클이 생기지 않는 간선만 선택하는 MST 알고리즘입니다.",
+    keywords: ["MST", "edge sort", "union-find", "cycle"],
+    starterCode: `static int kruskal() {
+    // 핵심 로직을 작성하세요.
+}`,
+    hints: ["간선을 비용 기준으로 오름차순 정렬합니다.", "find로 두 정점의 대표가 같은지 확인합니다.", "다른 집합일 때만 union하고 비용을 더합니다."],
+    criteria: ["간선 정렬", "간선 순회", "find", "사이클 검사", "union", "비용 누적"],
+    solutionCode: `static int kruskal() {
+    Collections.sort(edges);
+    int total = 0;
+    int count = 0;
+
+    for (Edge edge : edges) {
+        if (find(edge.from) == find(edge.to)) continue;
+        union(edge.from, edge.to);
+        total += edge.weight;
+        count++;
+        if (count == V - 1) break;
+    }
+
+    return total;
+}`,
+  },
+  {
+    id: "prim",
+    nameKo: "프림",
+    nameEn: "Prim",
+    summary: "하나의 정점에서 시작해 PriorityQueue로 가장 싼 연결 간선을 확장하는 MST 알고리즘입니다.",
+    keywords: ["MST", "PriorityQueue", "visited", "graph"],
+    starterCode: `static int prim(int start) {
+    // 핵심 로직을 작성하세요.
+}`,
+    hints: ["시작 정점을 PriorityQueue에 넣습니다.", "이미 방문한 정점은 건너뜁니다.", "방문 처리 후 비용을 더하고 인접 간선을 큐에 넣습니다."],
+    criteria: ["PriorityQueue", "시작 삽입", "PQ 반복", "방문 건너뛰기", "방문 처리", "비용 누적", "인접 간선 추가"],
+    solutionCode: `static int prim(int start) {
+    PriorityQueue<Edge> pq = new PriorityQueue<>();
+    pq.offer(new Edge(start, 0));
+    int total = 0;
+
+    while (!pq.isEmpty()) {
+        Edge current = pq.poll();
+        if (visited[current.to]) continue;
+
+        visited[current.to] = true;
+        total += current.weight;
+
+        for (Edge next : graph[current.to]) {
+            if (!visited[next.to]) {
+                pq.offer(next);
+            }
+        }
+    }
+
+    return total;
+}`,
+  },
+  {
+    id: "disjoint",
+    nameKo: "서로소 집합",
+    nameEn: "Disjoint Set",
+    summary: "parent 배열로 집합의 대표를 관리하고 find/union으로 연결 여부를 빠르게 판단합니다.",
+    keywords: ["parent", "find", "union", "path compression"],
+    starterCode: `static int find(int x) {
+    // 핵심 로직을 작성하세요.
+}
+
+static void union(int a, int b) {
+    // 핵심 로직을 작성하세요.
+}`,
+    hints: ["처음에는 parent[i] = i로 초기화합니다.", "find는 대표를 찾고 경로 압축을 적용합니다.", "union은 두 대표가 다를 때 parent를 연결합니다."],
+    criteria: ["parent 초기화", "find", "find 종료 조건", "경로 압축", "union", "parent 연결"],
+    solutionCode: `static void makeSet() {
+    for (int i = 1; i <= N; i++) {
+        parent[i] = i;
+    }
+}
+
+static int find(int x) {
+    if (parent[x] == x) return x;
+    return parent[x] = find(parent[x]);
+}
+
+static void union(int a, int b) {
+    int rootA = find(a);
+    int rootB = find(b);
+    if (rootA == rootB) return;
+    parent[rootB] = rootA;
+}`,
+  },
+  {
+    id: "topology",
+    nameKo: "위상정렬",
+    nameEn: "Topological Sort",
+    summary: "진입차수가 0인 정점부터 꺼내며 방향 그래프의 선후 관계 순서를 만듭니다.",
+    keywords: ["indegree", "Queue", "DAG", "order"],
+    starterCode: `static void topologySort() {
+    // 핵심 로직을 작성하세요.
+}`,
+    hints: ["진입차수가 0인 정점을 먼저 큐에 넣습니다.", "정점을 꺼낼 때마다 인접 정점의 진입차수를 줄입니다.", "진입차수가 새로 0이 되면 큐에 넣습니다."],
+    criteria: ["indegree 배열", "Queue", "0 진입차수 삽입", "큐 반복", "poll", "인접 순회", "진입차수 감소"],
+    solutionCode: `static void topologySort() {
+    Queue<Integer> queue = new LinkedList<>();
+
+    for (int i = 1; i <= N; i++) {
+        if (indegree[i] == 0) {
+            queue.offer(i);
+        }
+    }
+
+    while (!queue.isEmpty()) {
+        int current = queue.poll();
+        order.add(current);
+
+        for (int next : graph[current]) {
+            indegree[next]--;
+            if (indegree[next] == 0) {
+                queue.offer(next);
+            }
+        }
+    }
+}`,
+  },
+  {
+    id: "dp",
+    nameKo: "동적 계획법",
+    nameEn: "Dynamic Programming",
+    summary: "작은 문제의 답을 저장하고, 이전 상태를 이용해 더 큰 상태의 답을 채웁니다.",
+    keywords: ["dp table", "base case", "transition", "memoization"],
+    starterCode: `static int solveDp() {
+    // 핵심 로직을 작성하세요.
+}`,
+    hints: ["dp 배열 또는 테이블을 준비합니다.", "기저 상태의 초기값을 먼저 채웁니다.", "반복문으로 상태를 순회하며 이전 상태를 참조해 갱신합니다."],
+    criteria: ["DP 배열", "초기값", "상태 순회", "이전 상태 참조", "점화식", "정답 반환"],
+    solutionCode: `static int solveDp() {
+    dp[0] = 0;
+    dp[1] = 1;
+
+    for (int i = 2; i <= N; i++) {
+        dp[i] = Math.max(dp[i - 1], dp[i - 2] + value[i]);
+    }
+
+    return dp[N];
+}`,
+  },
 ];
 
 export function getAlgorithmById(id: string): Algorithm | undefined {
